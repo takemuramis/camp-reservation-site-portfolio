@@ -1,0 +1,227 @@
+/*PC向け*/
+
+body, html {
+  padding: 0;
+  margin: 0;
+  font-family: 'Sniglet', 'Helvetica Neue', sans-serif;
+  background-color: #d3ffa8;
+  color: #333;
+  line-height: 1.6;
+}
+
+a {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  text-decoration: none;
+  color: #0077cc;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.mail-link {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+#form {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+h1, h2, h3 {
+  text-align: center;
+  color: #2c3e50;
+}
+
+.menu_container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.menu_item {
+  flex: 1;
+  min-width: 200px;
+  max-width: 300px;
+  background: #fefefe;
+  border: 1px solid #ddd;
+  border-radius: 26px; 
+  padding: 15px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+form {
+  padding: 20px;
+}
+
+.formgroup {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+textarea {
+  height: 100px;
+}
+
+.radioButtonPlan label,
+.checkboxArea label {
+  display: inline-block;
+  margin-right: 15px;
+  font-size: 14px;
+}
+
+.checkboxArea {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.checkboxArea label {
+  flex: 1 1 30%;
+  min-width: 150px;
+}
+
+#calendar {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+#calendar td, #calendar th {
+  border: 1px solid #28a745;
+  padding: 8px;
+  text-align: center;
+}
+
+button[type="submit"] {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 30px;
+  font-size: 16px;
+  color: white;
+  background-color: #28a745;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.important {
+  color: red;
+  font-size: 12px;
+}
+
+.required {
+  color: red;
+  margin-left: 5px;
+}
+
+.Any {
+  color: #666;
+  font-size: 12px;
+}
+
+
+
+
+/*スマートフォン向け*/
+
+@media screen and (max-width: 768px) {
+
+  body, html {
+    padding: 0;
+    margin: 0;
+    font-family: 'Sniglet', cursive;
+    overflow-x: hidden; /* 横スクロールを禁止 */
+  }
+
+  h1 {
+    font-weight: bold;
+    font-size: 2em;
+    font-family: 'Raleway', sans-serif;
+    margin: 100px auto 30px auto;
+    color: #F90;
+    text-align: center;
+  }
+
+  p {
+    font-weight: normal;
+    font-size: 10px;
+    font-family: 'Sniglet', cursive;
+    width: 100%;
+    color: white;
+  }
+
+
+  header {
+    height: 100px;
+  }
+
+  form {
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  label {
+    width: 100%;
+    display: block;
+  }
+
+  input, textarea {
+    width: 100%;
+  }
+
+  .radioButtonPlan {
+    margin: 0 auto;
+    width: 80%;
+  }
+
+  .menu_container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .menu_item {
+    width: 80%;
+    margin: 0 auto 20px auto;
+  }
+
+  .checkboxArea {
+    width: 90%;
+    margin: 0 auto 10px auto;
+  }
+}

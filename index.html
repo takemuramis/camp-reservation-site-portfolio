@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css" media="screen and (min-width: 769px)"/>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&family=Sniglet&display=swap" rel="stylesheet">
+
+    <title>キャンプサイト予約フォーム</title>
+    <script src="function.js"></script>
+</head>
+<body onload="generateCalendar()">
+
+    <a href="mailto:example@example.com" class="mail-link">問い合わせ（メール）</a>
+    <div id="form">
+        <h1>キャンプサイト</h1>
+     
+
+            <section id="menu">
+                <div class="container">
+                    <h2>メニュー</h2>
+
+                    <div class="menu_container">
+                        <div class="menu_item">
+                            <h3>キャンプ</h3>
+                            <p>レンタルOKで<br>初心者にも!</p>
+                        </div>
+                        <div class="menu_item">
+                            <h3>BBQ</h3>
+                            <p>気軽にBBQが楽しめる！</p>
+                        </div>
+                        <div class="menu_item">
+                            <h3>グランピング</h3>
+                            <p>満天の星空を独占！</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <form id="waterform"  action="confirm.html" method="post">
+                <h2>お客様情報</h2>
+                <div class="formgroup" id="name-form">
+                    <label for="lastname">姓<span class="required">*(必須)</span></label>
+                    <input type="text" id="lastName" name="lastName" placeholder="例:佐藤" required />
+                    <p><span id="lastNameErrorMsg" class="important"></span>
+                        </p>
+                    <label for="firstName">名 <span class="required">*(必須)</span></label>
+                    <input type="text" id="firstName" name="firstName" placeholder="例:太郎" required />
+                    <p><span id="firstNameErrorMsg" class="important"></span></p>
+                </div>
+    
+                <div class="formgroup" id="phoneNumberGroup">
+                    <label for="phoneNumber">電話番号 <span class="required">*(必須)</span></label>
+                    <input type="text" id="phoneNumber" name="phoneNumber" placeholder="例:09012345678" required />
+                    <p><span id="phoneNumberErrorMsg" class="important"></span></p>
+                </div>
+    
+                <div class="formgroup" id="email-form">
+                    <label for="email">メールアドレス <span class="required">*(必須)</span></label>
+                    <input type="email" id="email" name="email" placeholder="例:Sample@sample.co.jp" required />
+                    <p><span id="emailErrorMsg" class="important"></span></p>
+                </div>
+
+            <label for="date">予約日*<span class="required">(必須)</span></label>
+            <p><span id="dateErrorMsg" class="important"></span></p>
+            <input type="date" id="date" name="date" required onchange="generateCalendar()" value="">
+            <table id="calendar"></table>
+            <div id="calendar-container"></div>
+            <div class="formgroup" id="date-form"></div>
+
+            <div class="formgroup" id="selectPlan">
+                <h2>プラン</h2>
+                <label class="planLabel">希望するプランを選択してください。<span class="required">*(必須)</span></label>
+                <div class="radioButtonPlan">
+                    <input type="radio" id="selectPlanCamp" name="plan" checked />
+                    <label for="selectPlanCamp">キャンプ</label>
+
+                    <input type="radio" id="selectPlanBBQ" name="plan"  />
+                    <label for="selectPlanBBQ">BBQ</label>
+
+                    <input type="radio" id="selectPlanGlamping" name="plan" />
+                    <label for="selectPlanGlamping">グランピング</label>
+                </div>
+            </div>
+
+            <div class="formgroup" id="checkRentalSupplies">
+                <h2>レンタル</h2>
+                <label class="planLabel">レンタルを希望する道具を選択してください。<span class="Any">(任意)</span></label>
+                <div class="checkboxArea">
+                    <label>
+                        <input type="checkbox" name="rental" value="テント"> テント
+                    </label>
+                    <label>
+                        <input type="checkbox" name="rental" value="タープ"> タープ
+                    </label>
+                    <label>
+                        <input type="checkbox" name="rental" value="寝袋"> 寝袋(シュラフ)
+                    </label>
+                    <label>
+                        <input type="checkbox" name="rental" value="ハンモック"> ハンモック
+                    </label>
+                    <label>
+                        <input type="checkbox" name="rental" value="テーブル"> テーブル
+                    </label>
+                    <label>
+                        <input type="checkbox" name="rental" value="チェア"> チェア
+                    </label>
+                    <label>
+                        <input type="checkbox" name="rental" value="焚き火台"> 焚き火台
+                    </label>
+                    <label>
+                        <input type="checkbox" name="rental" value="ランタン"> ランタン
+                    </label>
+                    <label>
+                        <input type="checkbox" name="rental" value="BBQコンロセット"> BBQコンロセット
+                    </label>
+                    <label>
+                        <input type="checkbox" name="rental" value="ポータブル電源"> ポータブル電源
+                    </label>
+                </div>
+            </div>
+
+            <div class="formgroup" id="selectNumberOfPeople">
+                <h2>利用人数</h2>
+                <label class="planLabel">利用する人数を選択してください。<span class="required">*(必須)</span></label>
+                <select id="selectBox" name="numberOfPeople">
+                    <option value="4人以上" selected>4人以上</option>
+                    <option value="1人">1人</option>
+                          <option value="2人">2人</option>
+                          <option value="3人">3人</option>
+                        </select><br>
+                        </div>
+                    
+
+            <div class="formgroup" id="message-form">
+                <label for="message">その他/ご要望など</label>
+                <textarea id="message" name="message" placeholder="ここにメッセージを入力してください"></textarea>
+            </div>
+
+            <div class="checkConfirm">
+                <label >予約内容を確認しましたか？
+                    <!-- <input type="checkbox" id=confirm onclick="return check()">  -->
+                    <input type="checkbox" id="confirm" onclick="return check()" onchange="updateReservationButtonState()">
+
+                </label>
+                </div>
+            <button type="submit"  id="reservationButton" disabled>予約する</button>
+            <!-- <input type="submit" value="予約する" id="reservationButton" disabled /> -->
+        </form>
+    </div>
+</body>
+</html>
