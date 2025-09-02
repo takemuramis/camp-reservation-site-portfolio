@@ -40,7 +40,7 @@
             <form id="reservationForm"  action="confirm.html" method="post">
                 <h2>お客様情報</h2>
                 <div class="formgroup" id="name-form">
-                    <label for="lastName">姓<span class="required">*(必須)</span></label>
+                    <label for="lastname">姓<span class="required">*(必須)</span></label>
                     <input type="text" id="lastName" name="lastName" placeholder="例:佐藤" required />
                     <p><span id="lastNameErrorMsg" class="important"></span>
                         </p>
@@ -63,7 +63,7 @@
 
             <label for="date">予約日*<span class="required">(必須)</span></label>
             <p><span id="dateErrorMsg" class="important"></span></p>
-            <input type="date" id="date" name="date" required value="">
+            <input type="date" id="date" name="date" required  value="">
             <table id="calendar"></table>
             <div id="calendar-container"></div>
             <div class="formgroup" id="date-form"></div>
@@ -131,7 +131,6 @@
                         </select><br>
                         </div>
                     
-
             <div class="formgroup" id="message-form">
                 <label for="message">その他/ご要望など</label>
                 <textarea id="message" name="message" placeholder="ここにメッセージを入力してください"></textarea>
@@ -139,7 +138,7 @@
 
             <div class="checkConfirm">
                 <label >予約内容を確認しましたか？
-                    <input type="checkbox" id="confirm">
+                    <input type="checkbox" id="confirm" onclick="return check()">
 
                 </label>
                 </div>

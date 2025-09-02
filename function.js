@@ -1,112 +1,89 @@
-
-document.addEventListener('DOMContentLoaded', () => {
-
-JavaScriptの
-  
+document.addEventListener('DOMContentLoaded', function() {
   // 現在の日付を取得
   const today = new Date();
 
-  function dateFormat(today, format){
-  format = format.replace("YYYY", today.getFullYear());
-  format = format.replace("MM", ("0"+(today.getMonth() + 1)).slice(-2));
-  format = format.replace("DD", ("0"+ today.getDate()).slice(-2));
+  function dateFormat(date, format){
+  format = format.replace("YYYY", date.getFullYear());
+  format = format.replace("MM", ("0"+(date.getMonth() + 1)).slice(-2));
+  format = format.replace("DD", ("0"+ date.getDate()).slice(-2));
   return format;
 }
   const data = dateFormat(today,'YYYY-MM-DD');
   const field = document.getElementById('date');
   field.value = data;
   field.setAttribute("min", data);
-
   generateCalendar();
-  
   field.addEventListener('change', generateCalendar);
 
   // ページ読み込み時に予約ボタンを無効化（押せない状態）にする
   const reservationButton = document.getElementById('reservationButton');
   reservationButton.disabled = true;
+  
 
-    // フォーム要素を取得
+  // フォーム要素を取得
   const reservationForm = document.getElementById('reservationForm');
-
-  const checkbox = document.getElementById('confirm');
-  checkbox.addEventListener('change', () => {
-    check(); // バリデーション
-    updateReservationButtonState(); // ボタン状態更新
-  });
   // フォーム送信時のイベントを設定
   reservationForm.addEventListener('submit', function(event) {
-    // バリデーションが失敗した場合
-    if (!check()) {
-        event.preventDefault(); // デフォルトのフォーム送信をキャンセル
+        if (!check()) {
+        event.preventDefault(); // エラーがあれば送信停止
+        return;
     }
+    // フォームのaction属性に設定されたURLへ遷移（通常の送信処理)
+    const actionUrl = this.getAttribute('action');
+    window.location.href = actionUrl;
   });
-  
 });
 
-// エラーメッセージを表示する共通関数
-function displayError(elementId, message) {
-    const errorMsgElement = document.getElementById(elementId);
-    if (errorMsgElement) {
-        errorMsgElement.innerText = message;
-    }
-}
 
-function check() {
-    let isValid = true;
+function check(){
+  let isValid = true;
 
-    // 姓のバリデーション
-    const lastName = document.getElementById("lastName").value.trim();
-    if (lastName.length < 1) {
-        displayError("lastNameErrorMsg", "※姓を入力してください");
-        isValid = false;
-    } else {
-        displayError("lastNameErrorMsg", "");
-    }
+  const checkLastName = document.getElementById("lastName").value.trim();
+  if(checkLastName.length < 1){
+    document.getElementById("lastNameErrorMsg").innerText = "※姓を入力してください"; 
+    isValid = false;
+  } else {
+    document.getElementById("lastNameErrorMsg").innerText = ""; // エラーメッセージをクリアにする
+  }
+  
+  const checkFirstName = document.getElementById("firstName").value.trim();
+  if(checkFirstName.length < 1){
+    document.getElementById("firstNameErrorMsg").innerText = "※名を入力してください"; 
+    isValid = false;
+  } else {
+    document.getElementById("firstNameErrorMsg").innerText = ""; // エラーメッセージをクリアにする
+  }
 
-    // 名のバリデーション
-    const firstName = document.getElementById("firstName").value.trim();
-    if (firstName.length < 1) {
-        displayError("firstNameErrorMsg", "※名を入力してください");
-        isValid = false;
-    } else {
-        displayError("firstNameErrorMsg", "");
-    }
-
-    // 電話番号のバリデーション
-    const phoneNumber = document.getElementById("phoneNumber").value.trim();
-    if (phoneNumber.length < 1) {
-        displayError("phoneNumberErrorMsg", "※電話番号を入力してください");
-        isValid = false;
-    } else if (!/^\d+$/.test(phoneNumber)) {
-        displayError("phoneNumberErrorMsg", "※半角数字で入力してください");
-        isValid = false;
-    } else {
-        displayError("phoneNumberErrorMsg", "");
-    }
-
-    // メールアドレスのバリデーション
-    const email = document.getElementById("email").value.trim();
-    if (email.length < 1) {
-        displayError("emailErrorMsg", "メールアドレスを入力してください");
-        isValid = false;
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-        displayError("emailErrorMsg", "※正しいメールアドレスを入力してください");
-        isValid = false;
-    } else {
-        displayError("emailErrorMsg", "");
-    }
-
-    // 日付のバリデーション
-    const date = document.getElementById("date").value.trim();
-    if (date.length < 8) {
-        displayError("dateErrorMsg", "※予約したい日付を入力してください");
-        isValid = false;
-    } else {
-        displayError("dateErrorMsg", "");
-    }
-
-    return isValid;
-}  
+  const checkPhoneNumber = document.getElementById("phoneNumber").value.trim();
+  if(checkPhoneNumber.length < 1){
+    document.getElementById("phoneNumberErrorMsg").innerText = "※電話番号を入力してください"; 
+    isValid = false;
+  } else if (!/^\d+$/.test(checkPhoneNumber)) {
+    document.getElementById("phoneNumberErrorMsg").innerText = "※半角数字で入力してください"; 
+    isValid = false;
+  } else {
+    document.getElementById("phoneNumberErrorMsg").innerText = ""; //エラーメッセージをクリアにする
+  }
+  const checkEmail = document.getElementById("email").value.trim();
+  if(checkEmail.length < 1){
+    document.getElementById("emailErrorMsg").innerText = "※メールアドレスを入力してください";
+    isValid = false;
+  } else if (!/\S+@\S+\.\S+/.test(checkEmail)) {
+    document.getElementById("emailErrorMsg").innerText = "※正しいメールアドレスを入力してください";
+    isValid = false;   
+  } else {
+    document.getElementById("emailErrorMsg").innerText = ""; //エラーメッセージをクリアにする
+  }
+  const checkDate = document.getElementById("date").value.trim();
+  if(checkDate.length < 8){
+    document.getElementById("dateErrorMsg").innerText = "※予約したい日付を入力してください";
+    isValid = false; 
+  } else {
+    document.getElementById("dateErrorMsg").innerText = ""; //エラーメッセージをクリアにする
+  }
+  
+  return isValid;
+}   
 
 
 
@@ -116,7 +93,7 @@ function generateCalendar() {
   const selectedDate = new Date(dateInput.value);
   const calendarTable = document.getElementById('calendar');
   
-  // カレンダーの日付を4週間分生成
+  // 
   calendarTable.innerHTML = '';
 
   if (dateInput.value !== '') {
@@ -143,6 +120,7 @@ function generateCalendar() {
       firstDayOfWeek.setDate(selectedDate.getDate() - selectedDate.getDay());
     
       // カレンダーの日付を生成
+      //4週間分のカレンダーを生成
       for (let i = 0; i < 4; i++) {
         const weekRow = calendarTable.insertRow();
     
@@ -170,16 +148,18 @@ function generateCalendar() {
   }
 }
 
+
+
 // チェックボックスの状態に応じて予約ボタンの有効・無効を切り替える
-  function updateReservationButtonState() {
-    const checkbox = document.getElementById('confirm');
-    const reservationButton = document.getElementById('reservationButton');
+function updateReservationButtonState() {
+  const checkbox = document.getElementById('confirm');
+  const reservationButton = document.getElementById('reservationButton');
   
-    if (checkbox.checked) {
-      reservationButton.disabled = false; // チェックが入っていれば予約ボタンを有効にする
-      reservationButton.style.backgroundColor = '#e58f0e'; // ボタンの色を変更する
-    } else {
-      reservationButton.disabled = true; // チェックが外れていれば予約ボタンを無効にする
-      // reservationButton.style.backgroundColor = ''; // 色を元に戻す場合はここを有効化
-    }
+  if (checkbox.checked) {
+    reservationButton.disabled = false; // チェックが入っていれば予約ボタンを有効にする
+    reservationButton.style.backgroundColor = '#e58f0e'; // ボタンの色を変更する
+  } else {
+    reservationButton.disabled = true; // チェックが外れていれば予約ボタンを無効にする
+    reservationButton.style.backgroundColor = '#ccc'; // 初期値に戻す
   }
+};
