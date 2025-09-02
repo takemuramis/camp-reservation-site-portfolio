@@ -10,7 +10,7 @@
     <title>キャンプサイト予約フォーム</title>
     <script src="function.js"></script>
 </head>
-<body onload="generateCalendar()">
+<body>
 
     <a href="mailto:example@example.com" class="mail-link">問い合わせ（メール）</a>
     <div id="form">
@@ -37,10 +37,10 @@
                     </div>
                 </div>
             </section>
-            <form id="waterform"  action="confirm.html" method="post">
+            <form id="reservationForm"  action="confirm.html" method="post">
                 <h2>お客様情報</h2>
                 <div class="formgroup" id="name-form">
-                    <label for="lastname">姓<span class="required">*(必須)</span></label>
+                    <label for="lastName">姓<span class="required">*(必須)</span></label>
                     <input type="text" id="lastName" name="lastName" placeholder="例:佐藤" required />
                     <p><span id="lastNameErrorMsg" class="important"></span>
                         </p>
@@ -63,7 +63,7 @@
 
             <label for="date">予約日*<span class="required">(必須)</span></label>
             <p><span id="dateErrorMsg" class="important"></span></p>
-            <input type="date" id="date" name="date" required onchange="generateCalendar()" value="">
+            <input type="date" id="date" name="date" required value="">
             <table id="calendar"></table>
             <div id="calendar-container"></div>
             <div class="formgroup" id="date-form"></div>
@@ -72,13 +72,13 @@
                 <h2>プラン</h2>
                 <label class="planLabel">希望するプランを選択してください。<span class="required">*(必須)</span></label>
                 <div class="radioButtonPlan">
-                    <input type="radio" id="selectPlanCamp" name="plan" checked />
+                    <input type="radio" id="selectPlanCamp" name="plan" value="キャンプ" checked />
                     <label for="selectPlanCamp">キャンプ</label>
 
-                    <input type="radio" id="selectPlanBBQ" name="plan"  />
+                    <input type="radio" id="selectPlanBBQ" value="BBQ" name="plan"  />
                     <label for="selectPlanBBQ">BBQ</label>
 
-                    <input type="radio" id="selectPlanGlamping" name="plan" />
+                    <input type="radio" id="selectPlanGlamping" value="グランピング" name="plan" />
                     <label for="selectPlanGlamping">グランピング</label>
                 </div>
             </div>
@@ -139,13 +139,11 @@
 
             <div class="checkConfirm">
                 <label >予約内容を確認しましたか？
-                    <!-- <input type="checkbox" id=confirm onclick="return check()">  -->
-                    <input type="checkbox" id="confirm" onclick="return check()" onchange="updateReservationButtonState()">
+                    <input type="checkbox" id="confirm">
 
                 </label>
                 </div>
             <button type="submit"  id="reservationButton" disabled>予約する</button>
-            <!-- <input type="submit" value="予約する" id="reservationButton" disabled /> -->
         </form>
     </div>
 </body>
