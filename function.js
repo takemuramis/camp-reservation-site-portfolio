@@ -1,24 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
   // 現在の日付を取得
   const today = new Date();
-
+  // 日付を指定のフォーマットに変換する関数
   function dateFormat(date, format){
-  format = format.replace("YYYY", date.getFullYear());
-  format = format.replace("MM", ("0"+(date.getMonth() + 1)).slice(-2));
-  format = format.replace("DD", ("0"+ date.getDate()).slice(-2));
+  format = format.replace("YYYY", date.getFullYear()); 
+  format = format.replace("MM", ("0"+(date.getMonth() + 1)).slice(-2)); // 月を2桁にする
+  format = format.replace("DD", ("0"+ date.getDate()).slice(-2)); // 日付を2桁にする
   return format;
 }
+  // 今日の日付を 'YYYY-MM-DD' 形式に変換
   const data = dateFormat(today,'YYYY-MM-DD');
   const field = document.getElementById('date');
-  field.value = data;
-  field.setAttribute("min", data);
+  field.value = data; // 初期値に今日の日付を設定
+  field.setAttribute("min", data);  // 過去の日付を選択不可にする
+
+  // カレンダーを生成
   generateCalendar();
-  field.addEventListener('change', generateCalendar);
+  field.addEventListener('change', generateCalendar); // 日付が変更された際にカレンダーを更新
 
   // ページ読み込み時に予約ボタンを無効化（押せない状態）にする
   const reservationButton = document.getElementById('reservationButton');
   reservationButton.disabled = true;
-  
+
+  // チェックボックスの状態に応じてボタン有効/無効を切り替える
+  checkbox.addEventListener('change', updateReservationButtonState);
 
   // フォーム要素を取得
   const reservationForm = document.getElementById('reservationForm');
@@ -34,10 +39,10 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-
+// 入力チェックを行う関数
 function check(){
   let isValid = true;
-
+  // 姓のチェック
   const checkLastName = document.getElementById("lastName").value.trim();
   if(checkLastName.length < 1){
     document.getElementById("lastNameErrorMsg").innerText = "※姓を入力してください"; 
@@ -45,7 +50,7 @@ function check(){
   } else {
     document.getElementById("lastNameErrorMsg").innerText = ""; // エラーメッセージをクリアにする
   }
-  
+  // 名のチェック
   const checkFirstName = document.getElementById("firstName").value.trim();
   if(checkFirstName.length < 1){
     document.getElementById("firstNameErrorMsg").innerText = "※名を入力してください"; 
@@ -53,7 +58,7 @@ function check(){
   } else {
     document.getElementById("firstNameErrorMsg").innerText = ""; // エラーメッセージをクリアにする
   }
-
+  // 電話番号のチェック
   const checkPhoneNumber = document.getElementById("phoneNumber").value.trim();
   if(checkPhoneNumber.length < 1){
     document.getElementById("phoneNumberErrorMsg").innerText = "※電話番号を入力してください"; 
@@ -64,6 +69,7 @@ function check(){
   } else {
     document.getElementById("phoneNumberErrorMsg").innerText = ""; //エラーメッセージをクリアにする
   }
+  // メールアドレスのチェック
   const checkEmail = document.getElementById("email").value.trim();
   if(checkEmail.length < 1){
     document.getElementById("emailErrorMsg").innerText = "※メールアドレスを入力してください";
@@ -74,6 +80,7 @@ function check(){
   } else {
     document.getElementById("emailErrorMsg").innerText = ""; //エラーメッセージをクリアにする
   }
+  // 予約日のチェック
   const checkDate = document.getElementById("date").value.trim();
   if(checkDate.length < 8){
     document.getElementById("dateErrorMsg").innerText = "※予約したい日付を入力してください";
@@ -86,18 +93,17 @@ function check(){
 }   
 
 
-
+// カレンダーを生成する関数
 function generateCalendar() {
   
   const dateInput = document.getElementById('date');
-  const selectedDate = new Date(dateInput.value);
+  const selectedDate = new Date(dateInput.value); // 選択された日付
   const calendarTable = document.getElementById('calendar');
-  
-  // 
-  calendarTable.innerHTML = '';
+   
+  calendarTable.innerHTML = ''; // カレンダーを初期化
 
   if (dateInput.value !== '') {
-      // 
+      // 曜日の行を作成 
       const dayOfWeekRow = calendarTable.insertRow();
       const daysOfWeek = ['日', '月', '火', '水', '木', '金', '土'];
       for (let i = 0; i < 7; i++) {
@@ -148,13 +154,9 @@ function generateCalendar() {
   }
 }
 
-
-
-// チェックボックスの状態に応じて予約ボタンの有効・無効を切り替える
+// 予約確認のチェックボックスの状態に応じて予約ボタンの有効・無効を切り替える
 function updateReservationButtonState() {
-  const checkbox = document.getElementById('confirm');
-  const reservationButton = document.getElementById('reservationButton');
-  
+  const checkbox = document.getElementById('confirm');  
   if (checkbox.checked) {
     reservationButton.disabled = false; // チェックが入っていれば予約ボタンを有効にする
     reservationButton.style.backgroundColor = '#e58f0e'; // ボタンの色を変更する
