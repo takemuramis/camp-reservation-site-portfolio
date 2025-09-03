@@ -30,9 +30,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const reservationForm = document.getElementById('reservationForm');
   // フォーム送信時のイベントを設定
   reservationForm.addEventListener('submit', function(event) {
+      event.preventDefault(); // 今回は常に送信を止める
         if (!check()) {
-        event.preventDefault(); // エラーがあれば送信停止
-        return;
+        return; // 入力エラーがあれば遷移しない
     }
     // フォームのaction属性に設定されたURLへ遷移（通常の送信処理)
     const actionUrl = this.getAttribute('action');
