@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
   reservationButton.disabled = true;
 
   // チェックボックスの状態に応じてボタン有効/無効を切り替える
+  const checkbox = document.getElementById('confirm'); 
   checkbox.addEventListener('change', updateReservationButtonState);
 
   // フォーム要素を取得
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     // フォームのaction属性に設定されたURLへ遷移（通常の送信処理)
     const actionUrl = this.getAttribute('action');
-    window.location.href = actionUrl;
+    window.location.href = "confirm.html";
   });
 });
 
@@ -156,7 +157,8 @@ function generateCalendar() {
 
 // 予約確認のチェックボックスの状態に応じて予約ボタンの有効・無効を切り替える
 function updateReservationButtonState() {
-  const checkbox = document.getElementById('confirm');  
+  const checkbox = document.getElementById('confirm');
+  const reservationButton = document.getElementById('reservationButton');
   if (checkbox.checked) {
     reservationButton.disabled = false; // チェックが入っていれば予約ボタンを有効にする
     reservationButton.style.backgroundColor = '#e58f0e'; // ボタンの色を変更する
